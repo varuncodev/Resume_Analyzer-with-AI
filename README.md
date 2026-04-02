@@ -1,220 +1,242 @@
-# AI Resume Analyzer 🤖
+# 🎯 AI Resume Analyzer
 
-A full-stack React application that analyzes resumes against job descriptions using **Groq AI**.  
-Built as a college project demonstrating AI integration, PDF parsing, and modern React architecture.
+An AI-powered resume analyzer built with **React** + **Groq AI (Llama 3.3)** that scores your resume against a job description, identifies keyword gaps, and gives actionable suggestions — in under 30 seconds.
 
----
-
-## Features
-
-| Feature | Description |
-|---|---|
-| **PDF Upload** | Drag & drop or click to upload — text extracted with pdf.js |
-| **ATS Score** | Applicant Tracking System compatibility score |
-| **JD Match %** | How well your resume matches the job description |
-| **Keyword Analysis** | Matched vs missing keywords highlighted |
-| **Skill Gap Analysis** | AI identifies missing skills and explains gaps |
-| **Improvement Suggestions** | Prioritized (High / Medium / Low) action items |
-| **Strengths Report** | What your resume already does well |
-| **Role Recommendations** | Job titles your profile suits best |
+> **College Project** — Free for first 2 analyses, ₹9/analysis after that.
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-```
-Frontend   →  React 18, CSS Variables, pdf.js
-AI Engine  →  Groq AI
-PDF Parse  →  pdfjs-dist v3
-Styling    →  Pure CSS (no UI library needed)
-```
+- 📄 **PDF Resume Upload** — Extracts text from your resume automatically
+- 🤖 **AI Analysis** — Powered by Groq's Llama 3.3-70b model (free & fast)
+- 📊 **ATS Score** — See how well your resume passes ATS filters
+- 🔍 **Keyword Gap Analysis** — Matched & missing keywords from the job description
+- 💡 **Skill Recommendations** — What to learn or highlight
+- ✅ **Actionable Suggestions** — Prioritized by High / Medium / Low
+- 🔐 **Google Login** — Track usage per user via Firebase Auth
+- 💳 **Razorpay Payments** — ₹9 per analysis after 2 free uses
+- 🚫 **Temp Email Blocked** — Only genuine email accounts allowed
 
 ---
 
-## Project Structure
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18 |
+| AI Model | Groq API — `llama-3.3-70b-versatile` |
+| PDF Parsing | pdfjs-dist |
+| Auth | Firebase Authentication (Google Sign-in) |
+| Database | Firebase Firestore |
+| Payments | Razorpay |
+
+---
+
+## 📁 Project Structure
 
 ```
 resume-analyzer/
 ├── public/
-│   ├── index.html
-│   └── pdf.worker.min.js        ← auto-copied by postinstall
-│
-├── scripts/
-│   └── copy-pdf-worker.js       ← copies pdf.js worker to /public
-│
+│   └── index.html
 ├── src/
 │   ├── components/
-│   │   ├── Header.jsx / .css    ← top navigation
-│   │   ├── UploadForm.jsx / .css← file upload + JD input
-│   │   ├── LoadingScreen.jsx / .css ← animated analysis steps
-│   │   ├── ScoreCard.jsx / .css ← reusable score ring + bar
-│   │   └── Results.jsx / .css   ← full analysis report
-│   │
+│   │   ├── Header.jsx / .css
+│   │   ├── UploadForm.jsx / .css
+│   │   ├── LoadingScreen.jsx / .css
+│   │   ├── Results.jsx / .css
+│   │   ├── ScoreCard.jsx / .css
+│   │   ├── AuthScreen.jsx / .css       ← Google login screen
+│   │   └── PaymentWall.jsx / .css      ← Razorpay payment wall
 │   ├── utils/
-│   │   ├── pdfExtractor.js      ← pdf.js text extraction
-│   │   └── analyzeResume.js     ← Anthropic API call + prompt
-│   │
+│   │   ├── analyzeResume.js            ← Groq API call
+│   │   ├── pdfExtractor.js             ← PDF text extraction
+│   │   ├── firebase.js                 ← Auth + Firestore helpers
+│   │   ├── razorpay.js                 ← Payment integration
+│   │   └── validateEmail.js            ← Blocks disposable emails
 │   ├── styles/
-│   │   └── global.css           ← CSS variables, animations
-│   │
-│   ├── App.jsx                  ← main state machine (form/loading/results/error)
-│   ├── App.css                  ← layout, hero, error panel
-│   └── index.js                 ← React entry point
-│
-├── .env                ← copy to .env and add your API key
+│   │   └── global.css
+│   ├── App.jsx                         ← Main app logic
+│   └── App.css
+├── .env                                ← Your secret keys (never commit!)
+├── .env.example                        ← Template for keys
 ├── .gitignore
 └── package.json
 ```
 
 ---
 
-## Setup — Step by Step
+## ⚙️ Setup & Installation
 
-### Step 1 — Prerequisites
-
-Make sure you have these installed:
+### Step 1 — Clone / Download the project
 
 ```bash
-node --version   # need v16 or higher
-npm --version    # need v8 or higher
+# If using git
+git clone https://github.com/your-username/resume-analyzer.git
+cd resume-analyzer
+
+# Or just unzip the downloaded folder
+cd resume-analyzer
 ```
 
-Download Node.js from: https://nodejs.org
+### Step 2 — Install dependencies
 
----
-
-### Step 2 — Get your Anthropic API Key
-
-1. Go to https://console.groq.com/keys
-2. Sign up / Log in
-3. Click **"API Keys"** in the sidebar
-4. Click **"Create Key"** → give it a name → copy the key
-5. Keep it safe — you won't see it again!
-
----
-
-### Step 3 — Download & Install
-
-#### Option A — Clone from GitHub (if you push it there)
 ```bash
-git clone https://github.com/YOUR_USERNAME/resume-analyzer.git
-cd resume-analyzer
 npm install
 ```
 
-#### Option B — From the downloaded zip
-```bash
-unzip resume-analyzer.zip
-cd resume-analyzer
-npm install
-```
+### Step 3 — Set up API keys
 
-`npm install` will automatically:
-- Install all dependencies
-- Copy `pdf.worker.min.js` to the `/public` folder (via postinstall script)
-
----
-
-### Step 4 — Add Your API Key
-
-```bash
-# Copy the example env file
-cp .env.example .env
-```
-
-Open `.env` in any text editor and replace the placeholder:
+Create a `.env` file in the root folder (same level as `package.json`):
 
 ```env
-REACT_APP_ANTHROPIC_API_KEY=sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxx
+REACT_APP_GROQ_API_KEY=gsk_your_groq_key_here
+REACT_APP_FIREBASE_API_KEY=AIzaSy_your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+REACT_APP_FIREBASE_APP_ID=1:123456789:web:abc123
+REACT_APP_RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxx
 ```
 
-> ⚠️ Never commit your `.env` file to GitHub. It's already in `.gitignore`.
-
----
-
-### Step 5 — Run the App
+### Step 4 — Start the app
 
 ```bash
 npm start
 ```
 
-Your browser will open at **http://localhost:3000**
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-### Step 6 — Build for Production (optional)
+## 🔑 Getting API Keys
 
+### 1. Groq API Key (Free)
+1. Go to [console.groq.com/keys](https://console.groq.com/keys)
+2. Sign up (no credit card needed)
+3. Click **"Create API Key"**
+4. Copy the key — starts with `gsk_...`
+5. Free tier: **14,400 requests/day**
+
+---
+
+### 2. Firebase (Free)
+1. Go to [console.firebase.google.com](https://console.firebase.google.com)
+2. Click **"Add project"** → name it → click Create
+3. **Enable Google Auth:**
+   - Build → Authentication → Get started
+   - Sign-in method → Google → Enable → Save
+4. **Enable Firestore:**
+   - Build → Firestore Database → Create database
+   - Select region: **asia-south1 (Mumbai)**
+   - Start in **Test mode** → Enable
+5. **Get config keys:**
+   - Click ⚙ gear icon → Project settings
+   - Scroll to "Your apps" → click **</> Web** icon
+   - Register app → copy the `firebaseConfig` values into your `.env`
+
+**Firestore Security Rules** (update before going live):
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId;
+    }
+  }
+}
+```
+
+---
+
+### 3. Razorpay (Free test mode)
+1. Go to [dashboard.razorpay.com](https://dashboard.razorpay.com)
+2. Sign up for a free account
+3. Settings → API Keys → **Generate Test Key**
+4. Copy the Key ID — starts with `rzp_test_...`
+5. When going live, replace with `rzp_live_...` key
+
+---
+
+## 💰 Pricing Logic
+
+| Usage | Cost |
+|-------|------|
+| First 2 analyses | **Free** |
+| 3rd analysis onwards | **₹9 per analysis** |
+
+- Usage is tracked per user in **Firestore** (linked to Google account)
+- Payment is processed via **Razorpay** (UPI, Cards, Net Banking supported)
+- Temporary/disposable email accounts are **blocked**
+
+---
+
+## 📊 What the Analysis Returns
+
+| Field | Description |
+|-------|-------------|
+| `ats_score` | How well the resume passes ATS filters (0–100) |
+| `match_percentage` | Overall match with job description (0–100) |
+| `skill_score` | Skills alignment score (0–100) |
+| `experience_score` | Experience relevance score (0–100) |
+| `format_score` | Resume formatting quality (0–100) |
+| `matched_keywords` | Up to 8 keywords found in both resume & JD |
+| `missing_keywords` | Up to 7 important keywords missing from resume |
+| `skills_to_add` | 4–6 skills to learn or highlight |
+| `suggestions` | Prioritized actionable improvements |
+| `strengths` | Up to 6 strengths found in resume |
+| `recommended_roles` | 3 job titles this resume suits |
+| `experience_level` | Junior / Mid-level / Senior / Lead / Executive |
+
+---
+
+## 🚀 Deployment
+
+### Deploy to Vercel (Recommended)
+```bash
+npm install -g vercel
+vercel
+```
+Add all your `.env` variables in **Vercel → Project → Settings → Environment Variables**.
+
+Then add your Vercel domain to:
+- Firebase Console → Authentication → Authorised domains
+
+### Deploy to Netlify
 ```bash
 npm run build
+# Drag & drop the /build folder to netlify.com
 ```
-
-This creates an optimized `/build` folder you can deploy to:
-- **Netlify** — drag & drop the `/build` folder
-- **Vercel** — `npx vercel` from the project root
-- **GitHub Pages** — add `"homepage"` to package.json
+Add environment variables in **Netlify → Site settings → Environment variables**.
 
 ---
 
-## How It Works — Architecture
+## ⚠️ Important Notes
 
-```
-User uploads PDF
-      ↓
-pdf.js extracts plain text (client-side, no server needed)
-      ↓
-Text + Job Description sent to Anthropic Claude API
-      ↓
-Claude analyzes:
-  • ATS keyword matching
-  • Skill gap identification
-  • Experience level detection
-  • Formatting quality
-  • Improvement suggestions
-      ↓
-JSON response parsed and rendered as interactive report
-```
+- **Never commit your `.env` file** — it's in `.gitignore` already
+- **Groq is free** but has rate limits — 14,400 requests/day on free tier
+- **Firestore Test Mode** expires in 30 days — update security rules before then
+- **Razorpay test mode** — use test card `4111 1111 1111 1111` to simulate payments
+- PDF must be **text-based** (not a scanned image) for text extraction to work
 
 ---
 
-## Customization Tips
+## 🧪 Testing Payments (Razorpay Test Mode)
 
-### Change the AI model
-In `src/utils/analyzeResume.js`:
-```js
-const MODEL = 'claude-opus-4-20250514';  // more powerful, slower
-```
+Use these test credentials in the Razorpay popup:
 
-### Add more suggestions
-Edit the prompt in `buildPrompt()` inside `analyzeResume.js` — increase the number of suggestions or add new analysis dimensions.
-
-### Change color theme
-All colors are CSS variables in `src/styles/global.css`. Change `--green-500` to any color you like.
+| Method | Details |
+|--------|---------|
+| Card | `4111 1111 1111 1111` · Expiry: any future date · CVV: any 3 digits |
+| UPI | `success@razorpay` |
+| Net Banking | Select any bank → use test credentials shown |
 
 ---
 
-## Common Errors & Fixes
+## 📝 License
 
-| Error | Fix |
-|---|---|
-| `API key not found` | Check your `.env` file has the correct variable name |
-| `Could not extract text` | Your PDF might be a scanned image — use a text-based PDF |
-| `API error 401` | Your API key is invalid or expired |
-| `API error 429` | Rate limited — wait a minute and try again |
-| `pdf.worker not found` | Run `node scripts/copy-pdf-worker.js` manually |
+MIT — free to use for educational purposes.
 
 ---
 
-## For College Submission — What to Highlight
-
-- **AI Integration**: Direct API call to Claude AI with custom prompt engineering
-- **PDF Parsing**: Client-side PDF text extraction using pdf.js (no backend!)
-- **React Architecture**: Component-based UI with clean state management
-- **Async/Await**: Modern JavaScript for API calls and file processing
-- **UX Design**: Loading states, error handling, responsive layout
-- **Security**: API key stored in env variable, never exposed in code
-
----
-
-## License
-
-MIT — free to use, modify, and submit for college projects.
+*Built with ❤️ using React + Groq AI · College Project*
