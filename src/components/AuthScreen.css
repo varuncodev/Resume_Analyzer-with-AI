@@ -1,0 +1,118 @@
+.auth-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  background: var(--card-bg, #1e1e2e);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.auth-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.auth-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+
+.auth-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.auth-sub strong { color: #a78bfa; }
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background: #fff;
+  color: #333;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  margin-bottom: 1.25rem;
+}
+
+.google-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.15);
+}
+
+.google-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.google-icon { width: 22px; height: 22px; }
+
+.btn-spinner {
+  width: 20px; height: 20px;
+  border: 3px solid #ccc;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.auth-error {
+  color: #f87171;
+  font-size: 0.88rem;
+  margin-bottom: 0.75rem;
+}
+
+.auth-privacy {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ── Auth rules ───────────────────────────────────────────────────── */
+.auth-rules {
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.auth-rule {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.auth-rule-no {
+  color: rgba(248, 113, 113, 0.85);
+}
+
+.auth-error-box {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.auth-error {
+  color: #f87171;
+  font-size: 0.88rem;
+  margin: 0;
+  line-height: 1.5;
+}

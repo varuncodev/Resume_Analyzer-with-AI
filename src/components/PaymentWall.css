@@ -1,0 +1,142 @@
+.payment-wall {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.pw-card {
+  background: var(--card-bg, #1e1e2e);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(108,99,255,0.15);
+}
+
+.pw-badge {
+  display: inline-block;
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pw-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+
+.pw-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+
+.pw-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.pw-sub strong { color: #a78bfa; }
+
+.pw-features {
+  background: rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pw-feature {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.9rem;
+}
+
+.pw-price {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.pw-amount {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #a78bfa;
+  line-height: 1;
+}
+
+.pw-per {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.45);
+}
+
+.pw-pay-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.pw-pay-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(108,99,255,0.4);
+}
+
+.pw-pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.pw-cancel-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.35);
+  font-size: 0.88rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+  transition: color 0.15s;
+}
+.pw-cancel-btn:hover { color: rgba(255,255,255,0.6); }
+
+.pw-error {
+  color: #f87171;
+  font-size: 0.88rem;
+  margin-bottom: 0.75rem;
+}
+
+.pw-secure {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+}
+
+.btn-spinner-white {
+  width: 20px; height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

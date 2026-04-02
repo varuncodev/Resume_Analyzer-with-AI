@@ -1,0 +1,49 @@
+/* src/components/ScoreCard.css */
+
+.score-bar-row {
+  margin-bottom: 14px;
+}
+
+.score-bar-row:last-child {
+  margin-bottom: 0;
+}
+
+.score-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.score-bar-label {
+  font-size: 13px;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.score-bar-value {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.bar-high { color: var(--green-700); }
+.bar-mid  { color: var(--amber-700); }
+.bar-low  { color: var(--red-700);   }
+
+.score-bar-track {
+  height: 6px;
+  background: var(--gray-100);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  animation: progressFill 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+.score-bar-fill.bar-high { background: var(--green-500); }
+.score-bar-fill.bar-mid  { background: var(--amber-400); }
+.score-bar-fill.bar-low  { background: var(--red-400);   }
